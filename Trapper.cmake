@@ -14,7 +14,7 @@
 # Install directory with external libraries without rebuilding
 # them from source every time, in case you have to regenerate
 # your project for dev testing over and over again while using
-# the same libraries. 
+# the same libraries.  
 # 
 # Those supposedly should be in your /usr/local,
 # but I found to be difficult to manage multiple version libs while
