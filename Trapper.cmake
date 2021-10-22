@@ -110,7 +110,7 @@ function(trapper_add_package TOOL LOCATION HASHING)
                     ${ARGN})
 
     #
-    # set managed config
+    # set managed config 
     #
 
     # TODO: default are directories filled with defaults
