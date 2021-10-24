@@ -120,9 +120,9 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
         set(TRAPPER_SKIP_INSTALL_TAGS ON)
         set(TRAPPER_SKIP_UNPARSED_ARGS ON)
         set(TRAPPER_SKIP_OVERWRITE ON)
-        # if(NOT TRAPPER_INSTALL_DIR)
-        #     set(TRAPPER_INSTALL_DIR "${CMAKE_SOURCE_DIR}/prebuilt")
-        # endif()
+        if(NOT TRAPPER_INSTALL_DIR)
+            set(TRAPPER_INSTALL_DIR "${CMAKE_SOURCE_DIR}/prebuilt")
+        endif()
     endif()
                 
     # set minimal args
@@ -685,7 +685,39 @@ endmacro()
 # è il comando che è sbagliato, l'hash md5 è giusto
 # non funziona nemmeno l'hash di un pacchetto prebuilt (embree p.es.)
 
+# -----
+
 # INSTALL_PREBUILT potrebbe essere eliminato da un controllo cmake sulla presenza del CMakeLists.txt
+
+# -----
+
+# Quando si clona libigl la directory thirdparty/mmg a root gli da fastidio:
+
+# remote: Compressing objects: 100% (205/205), done.        
+# remote: Total 38947 (delta 266), reused 313 (delta 185), pack-reused 38547        
+# Receiving objects: 100% (38947/38947), 10.22 MiB | 6.06 MiB/s, done.
+# Resolving deltas: 100% (24123/24123), done.
+# HEAD is now at fe34fa73 Merge branch 'mmg_integration' into integration
+# fatal: No url found for submodule path 'thirdparty/mmg' in .gitmodules
+# CMake Error at .cache/libigl/libigl-download-prefix/tmp/libigl-download-gitclone.cmake:52 (message):
+#   Failed to update submodules in:
+#   '/Users/max/Developer/Stage/Workspace/AutoTools3D/dep/libigl'
+
+
+# ninja: build stopped: subcommand failed.
+# CMake Error at cmake/DownloadProject.cmake:179 (message):
+#   Build step for libigl failed: 1
+# Call Stack (most recent call first):
+#   cmake/AutoTools3DDownloadExternal.cmake:14 (download_project)
+#   cmake/AutoTools3DDownloadExternal.cmake:26 (kt_download_project_aux)
+#   cmake/AutoTools3DDownloadExternal.cmake:59 (kt_download_project)
+#   CMakeLists.txt:437 (kt_download_libigl)
+
+
+# -- Configuring incomplete, errors occurred!
+
+# Come se si aspettasse un submodule che non c'è
+
 
 # TODO:
 
