@@ -55,7 +55,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
 
     option(TRAPPER_SKIP_INSTALL_TAGS "Skip formatting install directory with tags" OFF)
 
-    option(TRAPPER_ADVANCED "Skip enforcing Trapper defaults" OFF)
+    option(TRAPPER_SKIP_DEFAULTS "Skip enforcing Trapper defaults" OFF)
                 
 
     # 
@@ -65,7 +65,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     set(prefix "TRAPPER")
         
     set(flags    
-        ADVANCED                # skip enforcing Trapper defaults
+        SKIP_DEFAULTS                # skip enforcing Trapper defaults
     
         INSTALL_PREBUILT        # download and install an already built tool
     
@@ -116,7 +116,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     # TODO: default are directories filled with defaults
     # and everything to OFF (NAME THIS)
     # 
-    if(NOT TRAPPER_ADVANCED)        
+    if(NOT TRAPPER_SKIP_DEFAULTS)        
         set(TRAPPER_SKIP_INSTALL_TAGS ON)
         set(TRAPPER_SKIP_UNPARSED_ARGS ON)
         set(TRAPPER_SKIP_OVERWRITE ON)
@@ -167,20 +167,21 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
         endif()   
     endif()
 
+    # CHECK: here for the thirdparty error
     # set directories
-    if(NOT TRAPPER_DOWNLOAD_DIR AND TRAPPER_ADVANCED)
+    if(NOT TRAPPER_DOWNLOAD_DIR AND TRAPPER_SKIP_DEFAULTS)
         set(TRAPPER_DOWNLOAD_DIR "${CMAKE_SOURCE_DIR}/.cache")
     endif()
 
-    if(NOT TRAPPER_SOURCE_DIR AND TRAPPER_ADVANCED)
+    if(NOT TRAPPER_SOURCE_DIR AND TRAPPER_SKIP_DEFAULTS)
         set(TRAPPER_SOURCE_DIR "${CMAKE_SOURCE_DIR}/thirdparty")
     endif()
 
-    if(NOT TRAPPER_BUILD_DIR AND TRAPPER_ADVANCED)
+    if(NOT TRAPPER_BUILD_DIR AND TRAPPER_SKIP_DEFAULTS)
         set(TRAPPER_BUILD_DIR "${CMAKE_BINARY_DIR}")
     endif()
 
-    if(NOT TRAPPER_INSTALL_DIR AND TRAPPER_ADVANCED)
+    if(NOT TRAPPER_INSTALL_DIR AND TRAPPER_SKIP_DEFAULTS)
         set(TRAPPER_INSTALL_DIR "${CMAKE_SOURCE_DIR}/prebuilt")
     endif()
     
@@ -546,7 +547,7 @@ macro(verbose)
     message(STATUS "TRAPPER_SKIP_BUILD              : ${TRAPPER_SKIP_BUILD}             ")
     message(STATUS "TRAPPER_SKIP_INSTALL            : ${TRAPPER_SKIP_INSTALL}           ")
     
-    message(STATUS "TRAPPER_ADVANCED                : ${TRAPPER_ADVANCED}               ")
+    message(STATUS "TRAPPER_SKIP_DEFAULTS           : ${TRAPPER_SKIP_DEFAULTS}          ")
     message(STATUS "TRAPPER_INSTALL_PREBUILT        : ${TRAPPER_INSTALL_PREBUILT}       ")
     message(STATUS "TRAPPER_SKIP_INSTALL_TAGS       : ${TRAPPER_SKIP_INSTALL_TAGS}      ")
 
@@ -690,6 +691,8 @@ endmacro()
 # INSTALL_PREBUILT potrebbe essere eliminato da un controllo cmake sulla presenza del CMakeLists.txt
 
 # -----
+
+# viene creata una directory thirdparty/mmg anche se gli do una SOURCE_DIR differente
 
 # Quando si clona libigl la directory thirdparty/mmg a root gli da fastidio:
 
