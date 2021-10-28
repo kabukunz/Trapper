@@ -41,7 +41,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
 
     # package source directory (mostly not needed, set if you need to access sources directly)
     set(TRAPPER_SOURCE_DIR "" CACHE PATH "Top level source dir. 
-        Defaults to CMAKE_SOURCE_DIR/thirdparty")
+        Defaults to CMAKE_SOURCE_DIR/external")
 
     # package binary directory (mostly not needed. Really)
     set(TRAPPER_BUILD_DIR "" CACHE PATH "Top level binary dir. 
@@ -175,7 +175,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     endif()
 
     if(NOT TRAPPER_SOURCE_DIR AND TRAPPER_SKIP_DEFAULTS)
-        set(TRAPPER_SOURCE_DIR "${CMAKE_SOURCE_DIR}/thirdparty")
+        set(TRAPPER_SOURCE_DIR "${CMAKE_SOURCE_DIR}/external")
     endif()
 
     if(NOT TRAPPER_BUILD_DIR AND TRAPPER_SKIP_DEFAULTS)
@@ -291,7 +291,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
         set(TRAPPER_INSTALL_COMMAND "INSTALL_COMMAND \"\"")
     else()
         if(IS_DIRECTORY ${TRAPPER_INSTALL_DIR})
-            list(APPEND TRAPPER_ARGS "-D;CMAKE_INSTALL_PREFIX=${TRAPPER_INSTALL_DIR}")
+            list(APPEND TRAPPER_ARGS "-D;\"CMAKE_INSTALL_PREFIX=${TRAPPER_INSTALL_DIR}\"")
         endif()
     endif()
 
