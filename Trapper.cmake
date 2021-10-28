@@ -56,7 +56,8 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     option(TRAPPER_SKIP_INSTALL_TAGS "Skip formatting install directory with tags" OFF)
 
     option(TRAPPER_SKIP_DEFAULTS "Skip enforcing Trapper defaults" OFF)
-                
+
+    option(TRAPPER_VERBOSE "Enable verbose output" OFF)                
 
     # 
     # parsing
