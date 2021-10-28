@@ -291,7 +291,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
         set(TRAPPER_INSTALL_COMMAND "INSTALL_COMMAND \"\"")
     else()
         if(IS_DIRECTORY ${TRAPPER_INSTALL_DIR})
-            list(APPEND TRAPPER_ARGS "-D;CMAKE_INSTALL_PREFIX=\"${TRAPPER_INSTALL_DIR}\"")
+            list(APPEND TRAPPER_ARGS "-D;CMAKE_INSTALL_PREFIX=${TRAPPER_INSTALL_DIR}")
         endif()
     endif()
 
