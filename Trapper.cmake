@@ -66,8 +66,9 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     set(prefix "TRAPPER")
         
     set(flags    
-        SKIP_DEFAULTS                # skip enforcing Trapper defaults
+        SKIP_DEFAULTS           # skip enforcing Trapper defaults
     
+        HEADER_ONLY             # header-only package, skip build and skip install
         INSTALL_PREBUILT        # download and install an already built tool
     
         SKIP_OVERWRITE          # skip overwriting CMakeLists.txt and rebuilding every time. 
@@ -267,6 +268,11 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
             set(TRAPPER_SOURCE_DIR_COMMAND "SOURCE_DIR \"${TRAPPER_SOURCE_DIR}\"")
         endif()
     endif()
+
+    if(HEADER_ONLY)
+        set(TRAPPER_SKIP_BUILD ON)
+        set(TRAPPER_SKIP_INSTALL ON)
+    endif()
     
     if(TRAPPER_SKIP_BUILD)
         set(TRAPPER_BUILD_COMMAND "BUILD_COMMAND \"\"")
@@ -275,16 +281,6 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
             set(TRAPPER_BUILD_DIR_COMMAND "BINARY_DIR \"${TRAPPER_BUILD_DIR}\"")
         endif()            
     endif()
-
-    # check install dirs
-    # if(IS_DIRECTORY ${TRAPPER_INSTALL_DIR})
-    #     set(CMAKE_INSTALL_PREFIX ${TRAPPER_INSTALL_DIR})
-    # else()
-    #     set(TRAPPER_INSTALL_DIR ${CMAKE_INSTALL_PREFIX})
-    # endif()
-
-    # message("TRAPPER_INSTALL_DIR: " ${TRAPPER_INSTALL_DIR})
-    # message("CMAKE_INSTALL_PREFIX: " ${CMAKE_INSTALL_PREFIX})
         
     # check install
     if(TRAPPER_SKIP_INSTALL)
@@ -549,6 +545,7 @@ macro(verbose)
     message(STATUS "TRAPPER_SKIP_INSTALL            : ${TRAPPER_SKIP_INSTALL}           ")
     
     message(STATUS "TRAPPER_SKIP_DEFAULTS           : ${TRAPPER_SKIP_DEFAULTS}          ")
+    message(STATUS "HEADER_ONLY                     : ${HEADER_ONLY}                    ")
     message(STATUS "TRAPPER_INSTALL_PREBUILT        : ${TRAPPER_INSTALL_PREBUILT}       ")
     message(STATUS "TRAPPER_SKIP_INSTALL_TAGS       : ${TRAPPER_SKIP_INSTALL_TAGS}      ")
 
