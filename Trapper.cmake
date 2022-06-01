@@ -269,7 +269,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
         endif()
     endif()
 
-    if(HEADER_ONLY)
+    if(TRAPPER_HEADER_ONLY)
         set(TRAPPER_SKIP_BUILD ON)
         set(TRAPPER_SKIP_INSTALL ON)
     endif()
@@ -545,7 +545,7 @@ macro(verbose)
     message(STATUS "TRAPPER_SKIP_INSTALL            : ${TRAPPER_SKIP_INSTALL}           ")
     
     message(STATUS "TRAPPER_SKIP_DEFAULTS           : ${TRAPPER_SKIP_DEFAULTS}          ")
-    message(STATUS "HEADER_ONLY                     : ${HEADER_ONLY}                    ")
+    message(STATUS "TRAPPER_HEADER_ONLY             : ${TRAPPER_HEADER_ONLY}            ")
     message(STATUS "TRAPPER_INSTALL_PREBUILT        : ${TRAPPER_INSTALL_PREBUILT}       ")
     message(STATUS "TRAPPER_SKIP_INSTALL_TAGS       : ${TRAPPER_SKIP_INSTALL_TAGS}      ")
 
