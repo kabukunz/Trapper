@@ -68,15 +68,17 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     set(flags    
         SKIP_DEFAULTS           # skip enforcing Trapper defaults
     
-        HEADER_ONLY             # header-only package, skip build and skip install
+        HEADER_ONLY             # header-only package, skip build and skip install.
+                                # you may want to use SOURCE_DIR for deploy
+                                
         INSTALL_PREBUILT        # download and install an already built tool
     
         SKIP_OVERWRITE          # skip overwriting CMakeLists.txt and rebuilding every time. 
                                 # supposedly you don't change variables between builds. One shot.
-        SKIP_DOWNLOAD           # skip download step        note: actually already downloaded somewhere
-        SKIP_CONFIGURE          # skip configure step       NOTE: forced if install_prebuilt is set
-        SKIP_BUILD              # skip build step           NOTE: forced if install_prebuilt is set
-        SKIP_INSTALL            # skip install step         NOTE: build without install
+        SKIP_DOWNLOAD           # skip download step (already downloaded in the filesystem)
+        SKIP_CONFIGURE          # skip configure step 
+        SKIP_BUILD              # skip build step     
+        SKIP_INSTALL            # skip install step   
         
         # SKIP_INSTALL_TAGS       # skip formatting install directory with tags
 
