@@ -310,6 +310,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     # 
 
     get_filename_component(TRAPPER_LOCATION_EXT ${TRAPPER_LOCATION} EXT)
+    message(WARNING "TRAPPER_LOCATION_EXT ${TRAPPER_LOCATION_EXT}")
     string(FIND ${TRAPPER_LOCATION_EXT} "tar" IS_TAR)
     string(FIND ${TRAPPER_LOCATION_EXT} "gz" IS_GZIP)
     string(FIND ${TRAPPER_LOCATION_EXT} "zip" IS_ZIP)
