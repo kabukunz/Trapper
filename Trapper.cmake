@@ -309,9 +309,10 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     # check location and hash
     # 
 
-    string(FIND ${TRAPPER_LOCATION} "tar" IS_TAR)
-    string(FIND ${TRAPPER_LOCATION} "gz" IS_GZIP)
-    string(FIND ${TRAPPER_LOCATION} "zip" IS_ZIP)
+    get_filename_component(TRAPPER_LOCATION_EXT ${TRAPPER_LOCATION} EXT)
+    string(FIND ${TRAPPER_LOCATION_EXT} "tar" IS_TAR)
+    string(FIND ${TRAPPER_LOCATION_EXT} "gz" IS_GZIP)
+    string(FIND ${TRAPPER_LOCATION_EXT} "zip" IS_ZIP)
     if((IS_TAR GREATER_EQUAL 0) OR (IS_GZIP GREATER_EQUAL 0) OR (IS_ZIP GREATER_EQUAL 0))
         set(TRAPPER_LOCATION "URL \"${TRAPPER_LOCATION}\"")
         if(NOT TRAPPER_HASHING)
