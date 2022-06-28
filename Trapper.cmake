@@ -537,6 +537,7 @@ macro(verbose)
     
     message(STATUS "TRAPPER_PACKAGE                 : ${TRAPPER_PACKAGE}                ")
     message(STATUS "TRAPPER_LOCATION                : ${TRAPPER_LOCATION}               ")
+    message(STATUS "TRAPPER_LOCATION_EXT            : ${TRAPPER_LOCATION_EXT}           ")
     message(STATUS "TRAPPER_HASHING                 : ${TRAPPER_HASHING}                ")
     message(STATUS "TRAPPER_SKIP_OVERWRITE          : ${TRAPPER_SKIP_OVERWRITE}         ")
     message(STATUS "TRAPPER_SKIP_UNPARSED_ARGS      : ${TRAPPER_SKIP_UNPARSED_ARGS}     ")
