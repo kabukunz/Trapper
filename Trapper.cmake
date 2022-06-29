@@ -102,7 +102,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
 
     set(multiValues 
         INSTALL_TAGS                        # your own install tags: system_name, library version, etc.
-        PACKAGE_OPTIONS                        # cmake tool options
+        PACKAGE_OPTIONS                     # cmake tool options
         )
 
     include(CMakeParseArguments)
@@ -272,10 +272,11 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
 
     if(TRAPPER_SKIP_CONFIGURE)
         set(TRAPPER_CONFIGURE_COMMAND "CONFIGURE_COMMAND \"\"")
-    # else()
-    #     if(IS_DIRECTORY ${TRAPPER_SOURCE_DIR})
-    #         set(TRAPPER_SOURCE_DIR_COMMAND "SOURCE_DIR \"${TRAPPER_SOURCE_DIR}\"")
-    #     endif()
+    endif()
+    
+    # check source dir
+    if(IS_DIRECTORY ${TRAPPER_SOURCE_DIR})
+        set(TRAPPER_SOURCE_DIR_COMMAND "SOURCE_DIR \"${TRAPPER_SOURCE_DIR}\"")
     endif()
     
     if(TRAPPER_SKIP_BUILD)
