@@ -312,12 +312,14 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     # check location and hash
     # 
 
+
     get_filename_component(TRAPPER_LOCATION_EXT ${TRAPPER_LOCATION} EXT)
     string(FIND ${TRAPPER_LOCATION_EXT} "tar" IS_TAR)
     string(FIND ${TRAPPER_LOCATION_EXT} "gz" IS_GZIP)
     string(FIND ${TRAPPER_LOCATION_EXT} "zip" IS_ZIP)
     if((IS_TAR GREATER_EQUAL 0) OR (IS_GZIP GREATER_EQUAL 0) OR (IS_ZIP GREATER_EQUAL 0))
         set(TRAPPER_LOCATION "URL \"${TRAPPER_LOCATION}\"")
+        message(WARNING "TRAPPER_HASHING: ${TRAPPER_HASHING}")
         if(NOT TRAPPER_HASHING)
             set(TRAPPER_HASHING "")
         else()
@@ -328,6 +330,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
         set(TRAPPER_LOCATION "GIT_REPOSITORY \"${TRAPPER_LOCATION}\"")
         set(TRAPPER_HASHING "GIT_TAG ${TRAPPER_HASHING}")
     endif()
+
 
     # NOTE: ExternalProject_Get_property(${target} SOURCE_DIR) doesn't work here
 
