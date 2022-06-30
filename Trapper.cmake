@@ -331,7 +331,6 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
         endif()
     # git
     else()    
-        string(FIND ${TRAPPER_LOCATION_EXT} "git" IS_GIT)
         if(IS_GIT GREATER_EQUAL 0)
             set(TRAPPER_LOCATION "GIT_REPOSITORY \"${TRAPPER_LOCATION}\"")
             set(TRAPPER_HASHING "GIT_TAG ${TRAPPER_HASHING}")
@@ -339,6 +338,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     # non-empty source dir
     else()
         set(TRAPPER_SOURCE_DIR_COMMAND "SOURCE_DIR \"${TRAPPER_LOCATION}\"")
+        message(WARNING "TRAPPER_SOURCE_DIR_COMMAND ${TRAPPER_SOURCE_DIR_COMMAND}")
     endif()
 
 
