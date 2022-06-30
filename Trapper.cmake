@@ -312,13 +312,15 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     # check location and hash
     # 
 
-
     get_filename_component(TRAPPER_LOCATION_EXT ${TRAPPER_LOCATION} EXT)
 
     # archives
     string(FIND ${TRAPPER_LOCATION_EXT} "tar" IS_TAR)
     string(FIND ${TRAPPER_LOCATION_EXT} "gz" IS_GZIP)
     string(FIND ${TRAPPER_LOCATION_EXT} "zip" IS_ZIP)
+    string(FIND ${TRAPPER_LOCATION_EXT} "git" IS_GIT)
+
+    # zip
     if((IS_TAR GREATER_EQUAL 0) OR (IS_GZIP GREATER_EQUAL 0) OR (IS_ZIP GREATER_EQUAL 0))
         set(TRAPPER_LOCATION "URL \"${TRAPPER_LOCATION}\"")
         if(NOT TRAPPER_HASHING)
@@ -327,13 +329,16 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
             string(HEX ${TRAPPER_HASHING} hex_hashing)
             set(TRAPPER_HASHING "URL_MD5 ${hex_hashing}")
         endif()
-    endif()
-    
     # git
-    string(FIND ${TRAPPER_LOCATION_EXT} "git" IS_GIT)
-    if(IS_GIT GREATER_EQUAL 0)
-        set(TRAPPER_LOCATION "GIT_REPOSITORY \"${TRAPPER_LOCATION}\"")
-        set(TRAPPER_HASHING "GIT_TAG ${TRAPPER_HASHING}")
+    else()    
+        string(FIND ${TRAPPER_LOCATION_EXT} "git" IS_GIT)
+        if(IS_GIT GREATER_EQUAL 0)
+            set(TRAPPER_LOCATION "GIT_REPOSITORY \"${TRAPPER_LOCATION}\"")
+            set(TRAPPER_HASHING "GIT_TAG ${TRAPPER_HASHING}")
+        endif()
+    # non-empty source dir
+    else()
+        set(TRAPPER_SOURCE_DIR_COMMAND "SOURCE_DIR \"${TRAPPER_LOCATION}\"")
     endif()
 
 
