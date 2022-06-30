@@ -309,8 +309,12 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     endif()
 
     # 
-    # check location and hash
+    # check location and hashing
     # 
+
+    if(TRAPPER_HASHING STREQUAL "NONE")
+        set(TRAPPER_HASHING "")
+    endif()
 
     get_filename_component(TRAPPER_LOCATION_EXT ${TRAPPER_LOCATION} EXT)
 
@@ -339,9 +343,9 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
         set(TRAPPER_LOCATION "")
         set(TRAPPER_HASHING "")
         
-        message(WARNING "TRAPPER_SOURCE_DIR_COMMAND ${TRAPPER_SOURCE_DIR_COMMAND}")
-        message(WARNING "TRAPPER_LOCATION ${TRAPPER_LOCATION}")
-        message(WARNING "TRAPPER_HASHING ${TRAPPER_HASHING}")
+        # message(WARNING "TRAPPER_SOURCE_DIR_COMMAND ${TRAPPER_SOURCE_DIR_COMMAND}")
+        # message(WARNING "TRAPPER_LOCATION ${TRAPPER_LOCATION}")
+        # message(WARNING "TRAPPER_HASHING ${TRAPPER_HASHING}")
     endif()
 
 
