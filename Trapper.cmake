@@ -336,6 +336,8 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     else()
         # non-empty source dir
         set(TRAPPER_SOURCE_DIR_COMMAND "SOURCE_DIR \"${TRAPPER_LOCATION}\"")
+        set(TRAPPER_LOCATION "")
+        
         message(WARNING "TRAPPER_SOURCE_DIR_COMMAND ${TRAPPER_SOURCE_DIR_COMMAND}")
     endif()
 
