@@ -329,7 +329,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
             string(HEX ${TRAPPER_HASHING} hex_hashing)
             set(TRAPPER_HASHING "URL_MD5 ${hex_hashing}")
         endif()
-    elseif(IS_GIT GREATER_EQUAL 0)
+    elseif((IS_GIT GREATER_EQUAL 0))
         # git
         set(TRAPPER_LOCATION "GIT_REPOSITORY \"${TRAPPER_LOCATION}\"")
         set(TRAPPER_HASHING "GIT_TAG ${TRAPPER_HASHING}")
