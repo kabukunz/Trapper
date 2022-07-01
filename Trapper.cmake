@@ -51,7 +51,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     set(TRAPPER_INSTALL_DIR "" CACHE PATH "Top level install dir. 
         Defaults to CMAKE_SOURCE_DIR/prebuilt")
 
-    # option(TRAPPER_SKIP_OVERWRITE "Skip overwriting CMakeLists.txt and rebuilding every time" OFF)
+    # option(TRAPPER_OVERWRITE_BUILD "Skip overwriting CMakeLists.txt and rebuilding every time" OFF)
 
     option(TRAPPER_SKIP_INSTALL_TAGS "Skip formatting install directory with tags" OFF)
 
@@ -73,8 +73,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
                                 
         INSTALL_PREBUILT        # download and install an already built tool
     
-        SKIP_OVERWRITE          # skip overwriting CMakeLists.txt and rebuilding every time. 
-                                # supposedly you don't change variables between builds. One shot.
+        OVERWRITE_BUILD         # Overwrite CMakeLists.txt and rebuild every time
 
         SKIP_DOWNLOAD           # skip download step (already downloaded in the filesystem)
         SKIP_CONFIGURE          # skip configure step 
@@ -124,7 +123,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     if(NOT TRAPPER_SKIP_DEFAULTS)        
         set(TRAPPER_SKIP_INSTALL_TAGS ON)
         set(TRAPPER_SKIP_UNPARSED_ARGS ON)
-        set(TRAPPER_SKIP_OVERWRITE ON)
+        # set(TRAPPER_OVERWRITE_BUILD OFF)
         if(NOT TRAPPER_INSTALL_DIR)
             set(TRAPPER_INSTALL_DIR "${CMAKE_SOURCE_DIR}/prebuilt")
         endif()
@@ -400,8 +399,8 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     set(EXTERNALPROJECTS_DIR "${CMAKE_CURRENT_BINARY_DIR}/${EXTERNALPROJECTS_TAG}/${TRAPPER_PACKAGE}")
     set(EXTERNALPROJECTS_SCRIPT "${EXTERNALPROJECTS_DIR}/CMakeLists.txt")
 
-    # check skip overwrite
-    if(EXISTS ${EXTERNALPROJECTS_SCRIPT} AND TRAPPER_SKIP_OVERWRITE)
+    # check OVERWRITE_BUILD
+    if(EXISTS ${EXTERNALPROJECTS_SCRIPT} AND NOT TRAPPER_OVERWRITE_BUILD)
         return_values()
     endif()
 
@@ -570,7 +569,7 @@ macro(verbose)
     message(STATUS "TRAPPER_LOCATION                : ${TRAPPER_LOCATION}               ")
     message(STATUS "TRAPPER_LOCATION_EXT            : ${TRAPPER_LOCATION_EXT}           ")
     message(STATUS "TRAPPER_HASHING                 : ${TRAPPER_HASHING}                ")
-    message(STATUS "TRAPPER_SKIP_OVERWRITE          : ${TRAPPER_SKIP_OVERWRITE}         ")
+    message(STATUS "TRAPPER_OVERWRITE_BUILD         : ${TRAPPER_OVERWRITE_BUILD}        ")
     message(STATUS "TRAPPER_SKIP_UNPARSED_ARGS      : ${TRAPPER_SKIP_UNPARSED_ARGS}     ")
     
     message(STATUS "TRAPPER_CMAKE_BUILD_TYPE        : ${TRAPPER_CMAKE_BUILD_TYPE}       ")
