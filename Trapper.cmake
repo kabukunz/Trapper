@@ -399,10 +399,10 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     set(EXTERNALPROJECTS_DIR "${CMAKE_CURRENT_BINARY_DIR}/${EXTERNALPROJECTS_TAG}/${TRAPPER_PACKAGE}")
     set(EXTERNALPROJECTS_SCRIPT "${EXTERNALPROJECTS_DIR}/CMakeLists.txt")
 
-    # check OVERWRITE_BUILD
-    if(EXISTS ${EXTERNALPROJECTS_SCRIPT} AND NOT TRAPPER_OVERWRITE_BUILD)
-        return_values()
-    endif()
+    # # check overwriting
+    # if(EXISTS ${EXTERNALPROJECTS_SCRIPT} AND NOT TRAPPER_OVERWRITE_BUILD)
+    #     return_values()
+    # endif()
 
     file(WRITE ${EXTERNALPROJECTS_SCRIPT} "${CMAKELIST_CONTENT}")
     
@@ -442,7 +442,6 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     endif()
 
     # report()
-
     return_values()
 
 endfunction()
