@@ -316,7 +316,7 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
         set(TRAPPER_HASHING "")
     endif()
 
-    get_filename_component(TRAPPER_LOCATION_EXT ${TRAPPER_LOCATION} EXT)
+    get_filename_component(TRAPPER_LOCATION_EXT ${TRAPPER_LOCATION} EXT) 
 
     # archives
     if(TRAPPER_LOCATION_EXT)
