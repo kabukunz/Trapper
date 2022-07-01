@@ -319,12 +319,12 @@ function(trapper_add_package PACKAGE LOCATION HASHING)
     get_filename_component(TRAPPER_LOCATION_EXT ${TRAPPER_LOCATION} EXT)
 
     # archives
-    string(FIND ${TRAPPER_LOCATION_EXT} "tar" IS_TAR)
-    string(FIND ${TRAPPER_LOCATION_EXT} "gz" IS_GZIP)
-    string(FIND ${TRAPPER_LOCATION_EXT} "zip" IS_ZIP)
-    string(FIND ${TRAPPER_LOCATION_EXT} "git" IS_GIT)
-
     if(TRAPPER_LOCATION_EXT)
+        string(FIND ${TRAPPER_LOCATION_EXT} "tar" IS_TAR)
+        string(FIND ${TRAPPER_LOCATION_EXT} "gz" IS_GZIP)
+        string(FIND ${TRAPPER_LOCATION_EXT} "zip" IS_ZIP)
+        string(FIND ${TRAPPER_LOCATION_EXT} "git" IS_GIT)
+
         if((IS_TAR GREATER_EQUAL 0) OR (IS_GZIP GREATER_EQUAL 0) OR (IS_ZIP GREATER_EQUAL 0))
             # zip
             set(TRAPPER_LOCATION "URL \"${TRAPPER_LOCATION}\"")
