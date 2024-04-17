@@ -720,6 +720,8 @@ endmacro()
 # è il comando che è sbagliato, l'hash md5 è giusto
 # non funziona nemmeno l'hash di un pacchetto prebuilt (embree p.es.)
 
+# sono state fatte modifiche a questo, quindi bisogna riprovare
+
 # -----
 
 # INSTALL_PREBUILT potrebbe essere eliminato da un controllo cmake sulla presenza del CMakeLists.txt
@@ -764,12 +766,23 @@ endmacro()
 
 # porta tutti i parametri a cmake options
 
-# esempi mancanti (polyscope, imgui)
+# esempi mancanti (polyscope)
 
 # cambia i nomi build to binary
-# cambia i nomi tool to package
 
 # NOTE:
 
 # nessun install type "usr/local". si usano i normali apt-get e brew
 # la install dir è necessaria. L'installazione in /usr/local non è consentita.
+
+# il tool andrebbe usato mettendo: 
+# list(APPEND CMAKE_PREFIX_PATH "${TRAPPER_INSTALL_DIR}")
+
+# in questo modo le librerie vengono aggiunte e "trovate" di volta in volta da cmake
+
+# TRAPPER_SKIP_OVERWRITE
+
+# il normale comportamento del tool è quello di ribuildare tutto ogni volta. Nota che, tuttavia, questo vuol dire che il tool "modifica" il progetto esterno OGNI VOLTA. con il risultato che il cmake padre ribuilderà i file dipendenti ANCHE SE NON SONO STATI MODIFICATI realmente, perchè sono stati "touched". Questo avviene a ogni lancio di build (non alla compilazione), perchè è durante la build che il progetto esterno viene toccato.
+
+# Tuttavia è possibile usare un modello "one-shot", dove solo la prima volta si builda, e successivamente si usa il CMAKE_PREFIX_PATH, come sopra. Questo è un modello "user", dove si è certi che l'installazione funziona, contrapposto a un modello "developer", dove è necessario ripetere cambiando parametri.
+# Si potrebbe aggiungere la modifica controllando se nel CMAKE_PREFIX_PATH c'è la TRAPPER_INSTALL_DIR; se c'è, vuol dire modello user (o fast) e quindi skip del rebuild in profondità... TBD
